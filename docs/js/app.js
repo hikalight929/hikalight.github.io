@@ -19,6 +19,8 @@ const checkImage = () => {
     // QRコードの読み取りに成功したらモーダル開く
     // 失敗したら再度実行
     if (code) {
+    	// 追記
+    	alert("This is added message!!")
     	alert("code.data："+code.data);
         openModal(code.data)
     } else {

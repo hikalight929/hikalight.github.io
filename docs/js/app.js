@@ -45,7 +45,8 @@ navigator.mediaDevices
         audio: false,
         video: {
             facingMode: {
-                exact: 'user'
+                //exact: 'user'
+                exact: 'environment'
             }
         }
     })

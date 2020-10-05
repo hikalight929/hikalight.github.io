@@ -24,7 +24,7 @@ const checkImage = () => {
     	alert("code.data："+code.data);
         openModal(code.data)
     } else {
-        setTimeout(() => { checkImage() }, 200)
+        setTimeout(() => { checkImage() }, 100)
     }
 }
 

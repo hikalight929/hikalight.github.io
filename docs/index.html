@@ -1,48 +1,42 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Simple QR Reader</title>
-<link rel="stylesheet" href="./css/app.css">
-<link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png">
-<link rel="manifest" href="./manifest.json">
-<link rel="manifest" href="manifest.webmanifest" />
-<script async src="https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js" integrity="sha384-VcI6S+HIsE80FVM1jgbd6WDFhzKYA0PecD/LcIyMQpT4fMJdijBh0I7Iblaacawc" crossorigin="anonymous"></script>
-<script>
-if ('serviceWorker' in navigator) {
-  <!--navigator.serviceWorker.register('./sw.js')-->
-  navigator.serviceWorker.register('./sw.js')
-}
-</script>
-</head>
-<body>
-
-<div class="reader">
-  <video id="js-video" class="reader-video" autoplay playsinline></video>
-</div>
-
-<div style="display:none">
-  <canvas id="js-canvas"></canvas>
-</div>
-
-<div id="js-modal" class="modal-overlay">
-  <div class="modal">
-    <div class="modal-cnt">
-      <span class="modal-title">読み取り結果</span>
-      <span id="js-result" class="modal-result"></span>
+<html>
+  <head>
+    <title>Instascan &ndash; Demo</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  </head>
+  <body>
+    <a href="https://github.com/schmich/instascan"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    <div id="app">
+      <div class="sidebar">
+        <section class="cameras">
+          <h2>Cameras</h2>
+          <ul>
+            <li v-if="cameras.length === 0" class="empty">No cameras found</li>
+            <li v-for="camera in cameras">
+              <span v-if="camera.id == activeCameraId" :title="formatName(camera.name)" class="active">{{ formatName(camera.name) }}</span>
+              <span v-if="camera.id != activeCameraId" :title="formatName(camera.name)">
+                <a @click.stop="selectCamera(camera)">{{ formatName(camera.name) }}</a>
+              </span>
+            </li>
+          </ul>
+        </section>
+        <section class="scans">
+          <h2>Scans</h2>
+          <ul v-if="scans.length === 0">
+            <li class="empty">No scans yet</li>
+          </ul>
+          <transition-group name="scans" tag="ul">
+            <li v-for="scan in scans" :key="scan.date" :title="scan.content">{{ scan.content }}</li>
+          </transition-group>
+        </section>
+      </div>
+      <div class="preview-container">
+        <video id="preview"></video>
+      </div>
     </div>
-    <a href="" id="js-link" class="modal-btn" target="_blank">開く</a>
-    <button type="button" id="js-modal-close" class="modal-btn">閉じる</button>
-  </div>
-</div>
-
-<div id="js-unsupported" class="unsupported">
-  <p class="unsupported-title">Sorry!</p>
-  <p>Unsupported browser</p>
-</div>
-
-<script src="./js/jsQR.js"></script>
-<script src="./js/app.js"></script>
-</body>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
 </html>

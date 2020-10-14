@@ -25,8 +25,6 @@
         </section>
         <section class="scans">
           <h2>Scans</h2>
-          aaaaa
-          <input type="button" value="buttonnnnnn" onclick="alert('OKOK'+app.data)"/>
           <ul v-if="scans.length === 0">
             <li class="empty">No scans yet</li>
           </ul>
@@ -34,6 +32,8 @@
             <li v-for="scan in scans" :key="scan.date" :title="scan.content">{{ scan.content }}</li>
           </transition-group>
         </section>
+          aaaaa
+          <input type="button" value="buttonnnnnn" onclick="alert('OKOK'+app.data.scanner)"/>
       </div>
       <div class="preview-container">
         <video id="preview"></video>

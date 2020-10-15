@@ -10,7 +10,7 @@ class MediaError extends Error {
   }
 }
 
-class Camera {
+class Camera2 {
   constructor(id, name) {
     this.id = id;
     this.name = name;
@@ -32,7 +32,7 @@ class Camera {
       }
     };
 
-    this._stream = await Camera._wrapErrors(async () => {
+    this._stream = await Camera2._wrapErrors(async () => {
       return await navigator.mediaDevices.getUserMedia(constraints);
     });
 
@@ -57,7 +57,7 @@ class Camera {
     let devices = await navigator.mediaDevices.enumerateDevices();
     return devices
       .filter(d => d.kind === 'videoinput')
-      .map(d => new Camera(d.deviceId, cameraName(d.label)));
+      .map(d => new Camera2(d.deviceId, cameraName(d.label)));
   }
 
   static async _ensureAccess() {
@@ -82,4 +82,4 @@ class Camera {
   }
 }
 
-module.exports = Camera;
+module.exports = Camera2;
